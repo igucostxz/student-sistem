@@ -4,7 +4,7 @@ const readline = require("readline-sync");
 // SISTEMA DE ALUNOS
 // ========================================
 
-let alunos = [];
+const alunos = [];
 
 let executando = true;
 
@@ -33,22 +33,29 @@ while (executando) {
 
             let nome = readline.question("Nome: ");
             let idade = Number(readline.question("Idade: "));
-            let nota = Number(readline.question("Nota: "));
+            let nota = parseFloat(readline.question("Nota: "));
 
             // TODO:
             // Verificar se a nota está entre 0 e 10
             if (nota >= 0 && nota <= 10) {
-                    
+                // TODO:
+                // Criar um objeto aluno
+                let aluno = {
+                    nome: nome,
+                    idade: idade,
+                    nota: nota
+                };
+                // TODO:
+                // Adicionar o aluno ao array
+                alunos.push(aluno);
+                
+                console.log(alunos); 
             } else {
                 console.log("Nota inválida! Deve estar entre 0 e 10.");
 
             }
 
-            // TODO:
-            // Criar um objeto aluno
 
-            // TODO:
-            // Adicionar o aluno ao array
 
 
             break;
@@ -61,17 +68,18 @@ while (executando) {
 
             console.log("\n--- ALUNOS CADASTRADOS ---");
 
-            // TODO:
-            // Verificar se existem alunos cadastrados
-
-            // TODO:
-            // Percorrer o array utilizando FOR
-
-            // Mostrar:
-            // Nome
-            // Idade
-            // Nota
-
+            if (alunos.length !== 0) {
+                for (let i = 0; i < alunos.length; i++) {
+                    console.log(
+                        "Id: " + (i + 1) + "\n" +
+                        "Nome: " + alunos[i].nome + "\n" +
+                        "Idade: " + alunos[i].idade + "\n" +
+                        "Nota: " + alunos[i].nota + "\n"
+                    );
+                }
+            } else {
+                console.log("Nenhum aluno cadastrado.");
+            }
 
             break;
 
@@ -84,18 +92,17 @@ while (executando) {
             console.log("\n--- CONSULTAR ALUNO ---");
 
             let nomeBusca = readline.question("Digite o nome: ");
-
             let alunoEncontrado = false;
 
-            // TODO:
-            // Percorrer o array procurando
-            // pelo nome informado.
-
-            // Se encontrar:
-            // - Mostrar os dados
-            // - Alterar alunoEncontrado para true
-            // - Utilizar BREAK
-
+            for (let i = 0; i < alunos.length; i++) {
+                if (alunos[i].nome === nomeBusca) {
+                    console.log("Nome: " + alunos[i].nome);
+                    console.log("Idade: " + alunos[i].idade);
+                    console.log("Nota: " + alunos[i].nota);
+                    alunoEncontrado = true;
+                    break;
+                }
+            }
 
             if (!alunoEncontrado) {
                 console.log("Aluno nao encontrado.");
@@ -111,18 +118,20 @@ while (executando) {
 
             console.log("\n--- SITUACAO DOS ALUNOS ---");
 
-            // TODO:
-            // Percorrer todos os alunos
+            if (alunos.length === 0) {
+                console.log("Nenhum aluno cadastrado.");
+                break;
+            }
 
-            // Se nota >= 7
-            //    Aprovado
-            //
-            // Senão se nota >= 5
-            //    Recuperacao
-            //
-            // Senão
-            //    Reprovado
-
+            for (let i = 0; i < alunos.length; i++) {
+                if (alunos[i].nota >= 7) {
+                    console.log(alunos[i].nome + ": Aprovado");
+                } else if (alunos[i].nota >= 5) {
+                    console.log(alunos[i].nome + ": Recuperacao");
+                } else {
+                    console.log(alunos[i].nome + ": Reprovado");
+                }
+            }
 
             break;
 
